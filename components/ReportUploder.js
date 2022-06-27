@@ -90,7 +90,7 @@ const ReportUploder = ({ navigation }) => {
           />
           {errors.problem_Description && <Text style={styles.errorText}>{errors.problem_Description}</Text>}
 
-          <Button onPress={() => { handleSubmit(), navigation.navigate('HomeScreen') }} title="Submit" disabled={!isValid} />
+          <Button onPress={() =>{ handleSubmit(), navigation.navigate('HomeScreen') , Alert.alert('Your report has been submitted successfully')}} title="Submit" disabled={!isValid}  />
         </View>
       )}
     </Formik>
