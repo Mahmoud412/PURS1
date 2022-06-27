@@ -8,7 +8,7 @@ const Header = ({navigation}) => {
   return (
     <View style={styles.container} >
     <TouchableOpacity>
-    <Image  style={styles.logo} source={{uri:imageUrl}}/>
+    <Text style={styles.text}>PURS</Text>
     </TouchableOpacity>
     <TouchableOpacity onPress={()=>navigation.push('ProfileScreen')}>
     <View style={styles.IconsContainer}>
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
       alignItems:'center',
       flexDirection:'row',
       marginHorizontal:20,
+      marginTop:20,
     },
     IconsContainer: {
       flexDirection:'row',
@@ -44,17 +45,27 @@ const styles = StyleSheet.create({
       backgroundColor: "grey",
   },
   prfileLogo:{
-    width: 60,
-        height: 60,
+    width: 50,
+        height: 50,
         marginleft: 20,
         resizeMode: 'contain',
         borderRadius:20,
         borderWidth:2,
         borderColor:'#D3D3D3',
-        marginBottom:20,
+        marginTop:10,
         width:40,
         height:40,
-  }
+  },
+  text: {
+    fontSize: 30,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginTop: 30,
+    color: '#008080',
+   marginTop:10,
+   arginleft: 20,
+    fontFamily:'AvenirNextCondensed-BoldItalic'
+},
 
 })
 

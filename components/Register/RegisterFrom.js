@@ -13,29 +13,7 @@ const RegisterFromValidationSchema = Yup.object().shape({
 })
 
 
-const onSignup = async (email , password, username , phoneNumber)=>{
-    try{
-        const authuser = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-        console.log(
-            "firebase User Created Successfully",
-            email,
-            password,
-            username,
-            phoneNumber
-        );
-        db.collection('users').doc(authuser.user.email).set({
-            owner_uid: authuser.user.uid,
-            email: authuser.user.email,
-            username: username,
-            phoneNumber:phoneNumber
-        });
 
-    }catch(error){
-        Alert.alert(error.message)
-    }
-}
 
 const RegisterFrom = ({navigation}) => {
     return (
