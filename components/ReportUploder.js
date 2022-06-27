@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -14,17 +14,22 @@ const ReportValidationSchema = Yup.object().shape({
 
 });
 
-function uploadFormDataToFirebase(firstName, lastName, email, phoneNumber, address, problemDescription) {
-  const uploadData = db.collection('users').doc(firebase.auth().currentUser.email).collection('reports').add({
-    first_name: firstName,
-    last_name: lastName,
-    email: email,
-    phone_number: phoneNumber,
-    address: address,
-    problem_description: problemDescription
-  }).then(() => navigation.navigate('HomeScreen'))
+const onReport = async (firstName, lastName, email, phoneNumber, address, problemDescription) => {
+  try {
 
-  return uploadData;
+    await db.collection('users').doc(firebase.auth().currentUser.email).collection('reports').add({
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      phone_number: phoneNumber,
+      address: address,
+      problem_description: problemDescription,
+    }),console.log('Added reports to the firebase Successfully',firstName,lastName,email,phoneNumber,address,problemDescription)
+
+  } catch (erorr) {
+    Alert.alert(erorr.message)
+  }
+
 }
 
 const ReportUploder = ({ navigation }) => {
@@ -33,9 +38,9 @@ const ReportUploder = ({ navigation }) => {
   return (
 
     <Formik
-      initialValues={{ firstName: '', lastName: '', email: '', phoneNumber: '', address: '', problemDescription: '' }}
+      initialValues={{ firstName: '', lastName: '', email: '', phoneNumber: '', address: '', problem_Description: '' }}
       onSubmit={(values) => {
-        onReport(values.firstName, values.lastName, values.email, values.phoneNumber, values.address, values.problemDescription)
+        onReport(values.firstName, values.lastName, values.email, values.phoneNumber, values.address, values.problem_Description)
       }}
       validationSchema={ReportValidationSchema}
     >
@@ -85,7 +90,7 @@ const ReportUploder = ({ navigation }) => {
           />
           {errors.problem_Description && <Text style={styles.errorText}>{errors.problem_Description}</Text>}
 
-          <Button  onPress={()=>{handleSubmit() , uploadFormDataToFirebase(firstName, lastName, email, phoneNumber, address, problemDescription) }}  title="Submit" disabled={!isValid} />
+          <Button onPress={() => { handleSubmit(), navigation.navigate('HomeScreen') }} title="Submit" disabled={!isValid} />
         </View>
       )}
     </Formik>

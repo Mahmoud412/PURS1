@@ -1,10 +1,10 @@
-import { View, Text, TextInput, StyleSheet, TouchableOpacity , Alert} from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { Icon, Button } from '@rneui/base'
 import LoginScreen from '../../screens/LoginScreen/LoginScreen'
-import {firebase , db} from '../firebase'
+import { firebase, db } from '../firebase'
 const RegisterFromValidationSchema = Yup.object().shape({
     name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
     email: Yup.string().email('Invalid email').required('Required'),
@@ -12,14 +12,38 @@ const RegisterFromValidationSchema = Yup.object().shape({
     password: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
 })
 
+const onSignup = async (email, password, username,phone_number) => {
+    try {
+      const authuser = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+      console.log(
+        "firebase User Created Successfully",
+        email,
+        password,
+        username,
+        phone_number
+      );
 
+      db.collection("users")
+        .doc(authuser.user.email)
+        .set({
+          owner_uid: authuser.user.uid,
+          username: username,
+          email: authuser.user.email,
+          phonenumber:phone_number,
+          
+        });
+    } catch (error) {
+      Alert.alert("My Lord...", error.message);
+    }
+  };
 
-
-const RegisterFrom = ({navigation}) => {
+const RegisterFrom = ({ navigation }) => {
     return (
         <Formik
             initialValues={{ name: '', email: '', phoneNumber: '', password: '', }}
-            onSubmit={(values)=>{
+            onSubmit={(values) => {
                 onSignup(values.email, values.password, values.name, values.phoneNumber)
             }}
             validationSchema={RegisterFromValidationSchema}

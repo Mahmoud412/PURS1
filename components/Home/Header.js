@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     color: '#008080',
    marginTop:10,
    arginleft: 20,
-    fontFamily:'AvenirNextCondensed-BoldItalic'
+    fontFamily:'Baskerville-Bold'
 },
 
 })
