@@ -7,6 +7,7 @@ import ProfileScreen from './screens/profile/ProfileScreen'
 import ReportScreen from './screens/ReportScreen'
 import LoginScreen from './screens/LoginScreen/LoginScreen'
 import RegisterScreen from './screens/LoginScreens/RegisterScreen'
+import ReportsListScreen from './screens/ReportsListScreen/ReportsListScreen'
 const Stack = createStackNavigator();
 
 const screenOptions = {
@@ -21,6 +22,9 @@ const screenOptions = {
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="ReportScreen" component={ReportScreen} />
+            <Stack.Screen name="ReportsListScreen" component={ReportsListScreen} />
+
+            
 
         </Stack.Navigator>
     </NavigationContainer>

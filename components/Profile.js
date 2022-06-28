@@ -1,9 +1,9 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Icon, Button } from '@rneui/base'
-import HomeScreen from '../screens/HomeScreen'
-import { useScrollToTop } from '@react-navigation/native'
 import { firebase, db } from './firebase'
+import ReportsListScreen from '../screens/ReportsListScreen/ReportsListScreen';
+
 
 
 const handleSignout = async () => {
@@ -48,7 +48,7 @@ const Profile = ({ navigation }) => {
                     color: 'white',
                 }}
             />
-            <Button
+            <Button onPress={()=>navigation.navigate('ReportsListScreen')}
                 title='Reports History'
 
                 containerStyle={{ width: '80%', alignSelf: 'center', marginTop: 30 }}

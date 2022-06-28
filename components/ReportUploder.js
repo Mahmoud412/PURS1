@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import HomeScreen from '../screens/HomeScreen';
 import { firebase, db } from './firebase'
+import ReportsListScreen from '../screens/ReportsListScreen/ReportsListScreen';
 const ReportValidationSchema = Yup.object().shape({
   firstName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
   lastName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
@@ -90,7 +91,7 @@ const ReportUploder = ({ navigation }) => {
           />
           {errors.problem_Description && <Text style={styles.errorText}>{errors.problem_Description}</Text>}
 
-          <Button onPress={() =>{ handleSubmit(), navigation.navigate('HomeScreen') , Alert.alert('Your report has been submitted successfully')}} title="Submit" disabled={!isValid}  />
+          <Button onPress={() =>{ handleSubmit(), navigation.navigate('ReportsListScreen') , Alert.alert('Your report has been submitted successfully')}} title="Submit" disabled={!isValid}  />
         </View>
       )}
     </Formik>
